@@ -21,44 +21,69 @@ router.get('/teachers/', (req, res) => {
 	});
 });
 
-// // Write the route to get song by artist//show
-// router.get('/artist/:artist', (req, res) => {
-// 	Song.find({ artist: req.params.artist }, (err, song) => {
-// 		if (err) console.log(err);
-// 		else res.send(song);
-// 	});
-// });
+// Get student by last name
+router.get('/students/:lastname', (req, res) => {
+	Student.find({ lastName: req.params.lastname }, (err, student) => {
+		if (err) console.log(err);
+		else res.send(student);
+	});
+});
 
-// // Write the route to get song by name//show
-// router.get('/name/:name', (req, res) => {
-// 	Song.find({ name: req.params.name }, (err, song) => {
-// 		if (err) console.log(err);
-// 		else res.send(song);
-// 	});
-// });
+// Get teacher by last name
+router.get('/teachers/:lastname', (req, res) => {
+	Teacher.find({ lastName: req.params.lastname }, (err, teacher) => {
+		if (err) console.log(err);
+		else res.send(teacher);
+	});
+});
 
-// // Write the route to create a song//create
-// router.post('/', (req, res) => {
-// 	Song.create(req.body, (err, song) => {
-// 		if (err) console.log(err);
-// 		else res.send(song);
-// 	});
-// });
 
-// // Write the route to update a song//update
-// router.put('/:id', (req, res) => {
-// 	Song.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, updated) => {
-// 		if (err) console.log(err);
-// 		else res.send(updated);
-// 	});
-// });
+// Create a teacher
+router.post('/teachers/', (req, res) => {
+	Teacher.create(req.body, (err, teacher) => {
+		if (err) console.log(err);
+		else res.send(teacher);
+	});
+});
 
-// // Write the route to delete the song by id//delete
-// router.delete('/:id', (req, res) => {
-// 	Song.deleteOne({ _id: req.params.id }, (err, deleted) => {
-// 		if (err) console.log(err);
-// 		else res.send(deleted);
-// 	});
-// });
+// Create a student
+router.post('/students/', (req, res) => {
+	Student.create(req.body, (err, student) => {
+		if (err) console.log(err);
+		else res.send(student);
+	});
+});
+
+// Update a teacher by id
+router.put('/teachers/:id', (req, res) => {
+	Teacher.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, updated) => {
+		if (err) console.log(err);
+		else res.send(updated);
+	});
+});
+
+// Update a student by id
+router.put('/students/:id', (req, res) => {
+	Student.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, updated) => {
+		if (err) console.log(err);
+		else res.send(updated);
+	});
+});
+
+// Delete a student by id
+router.delete('/students/:id', (req, res) => {
+	Student.deleteOne({ _id: req.params.id }, (err, deleted) => {
+		if (err) console.log(err);
+		else res.send(deleted);
+	});
+});
+
+// Delete a teacher by id
+router.delete('/teachers/:id', (req, res) => {
+	Teacher.deleteOne({ _id: req.params.id }, (err, deleted) => {
+		if (err) console.log(err);
+		else res.send(deleted);
+	});
+});
 
 module.exports = router;
