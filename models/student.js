@@ -8,12 +8,17 @@ const studentSchema = new mongoose.Schema({
   idiom: { type: String, required: true },
   language: { type: String },
   other: { type: String },
-  myTeachers: { type: Boolean, default: false },
+  myTeachers: [
+    {
+      ref: "teacher",
+      type: mongoose.Schema.Types.ObjectId,
+    },
+  ],
   online: { type: Boolean, default: false },
   student: { type: Boolean, default: false },
   teacher: { type: Boolean, default: false },
 });
 
-const Student = mongoose.model("student", studentSchema);
+const Student = mongoose.model("Student", studentSchema);
 
 module.exports = Student;
