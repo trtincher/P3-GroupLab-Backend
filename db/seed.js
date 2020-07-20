@@ -6,7 +6,6 @@ const Teacher = require("../models/teacher");
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 const main = async () => {
-
   await Student.deleteMany({});
   await Teacher.deleteMany({});
     
@@ -48,6 +47,7 @@ const main = async () => {
       idiom1: "Guitar",
       idiom2: "Banjo",
       idiom3: "Ukelele",
+      rate: 50,
       language: "English",
       teachingStyle: "Suzuki",
       online: true,
@@ -63,6 +63,7 @@ const main = async () => {
       idiom1: "Clarinet",
       idiom2: "Saxophone",
       idiom3: "",
+      rate: 48,
       language: "English",
       teachingStyle: "Authoritarian",
       online: true,

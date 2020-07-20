@@ -13,7 +13,7 @@ mongoose.connect(
   { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false },
   () => console.log("connection established to mongod")
 );
-mongoose.Promise = Promise;
 
+// mongoose.Promise = Promise;
 module.exports = mongoose;
 
