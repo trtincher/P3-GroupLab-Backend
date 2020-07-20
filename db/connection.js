@@ -8,3 +8,4 @@ mongoose.connect(
 mongoose.Promise = Promise;
 
 module.exports = mongoose;
+

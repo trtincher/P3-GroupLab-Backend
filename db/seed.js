@@ -1,39 +1,45 @@
+const mongoose = require("./connection.js");
+const db = mongoose.connection;
 const Student = require("../models/student");
 const Teacher = require("../models/teacher");
 
-Student.find({}).remove(() => {
-  Student.create(
-    {
-      firstName: "Tamika",
-      lastName: "Robinson",
-      email: "tamikar1242@gmail.com",
-      location: "Omaha, NE",
-      idiom: "Violin",
-      language: "English",
-      other: "Allergic to peanuts",
-      myTeachers: false,
-      online: true,
-      student: true,
-      teacher: false,
-    },
-    {
-      firstName: "Aleksandra",
-      lastName: "Dubrov",
-      email: "adubrov1248@gmail.com",
-      location: "Peoria, IL",
-      idiom: "Flute",
-      language: "Russian",
-      other: "",
-      myTeachers: false,
-      online: true,
-      student: true,
-      teacher: false,
-    }
-  );
-});
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-Teacher.find({}).remove(() => {
-  Teacher.create(
+const main = async () => {
+
+  await Student.deleteMany({});
+  await Teacher.deleteMany({});
+    
+  await Student.insertMany([
+      {
+        firstName: "Tamika",
+        lastName: "Robinson",
+        email: "tamikar1242@gmail.com",
+        location: "Omaha, NE",
+        idiom: "Violin",
+        language: "English",
+        other: "Allergic to peanuts",
+        myTeachers: false,
+        online: true,
+        student: true,
+        teacher: false,
+      },
+      {
+        firstName: "Aleksandra",
+        lastName: "Dubrov",
+        email: "adubrov1248@gmail.com",
+        location: "Peoria, IL",
+        idiom: "Flute",
+        language: "Russian",
+        other: "",
+        myTeachers: false,
+        online: true,
+        student: true,
+        teacher: false,
+      }
+    ]);
+  
+  await Teacher.insertMany([
     {
       firstName: "Ebi",
       lastName: "Adebayo",
@@ -64,5 +70,15 @@ Teacher.find({}).remove(() => {
       student: false,
       teacher: true,
     }
-  );
-});
+  ])
+
+};
+
+console.log("Created Teachers and Students!")
+
+const run = async () => {
+  await main();
+  db.close();
+};
+
+run();
