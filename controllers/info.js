@@ -29,10 +29,25 @@ router.get("/students/:lastname", (req, res) => {
   });
 });
 
-
 // Get teacher by last name
 router.get("/teachers/:lastname", (req, res) => {
   Teacher.find({ lastName: req.params.lastname }, (err, teacher) => {
+    if (err) console.log(err);
+    else res.send(teacher);
+  });
+});
+
+// Get student by email
+router.get("/students/email/:email", (req, res) => {
+  Student.find({ email: req.params.email }, (err, student) => {
+    if (err) console.log(err);
+    else res.send(student);
+  });
+});
+
+// Get teacher by email
+router.get("/teachers/email/:email", (req, res) => {
+  Teacher.find({ email: req.params.email }, (err, teacher) => {
     if (err) console.log(err);
     else res.send(teacher);
   });
@@ -87,6 +102,23 @@ router.delete("/students/:id", (req, res) => {
     else res.send(deleted);
   });
 });
+
+// // After that delete, cascade delete all references
+// Student.post("deleteOne", (document) => {
+//   const studentId = document._id;
+//   Teacher.find({ studentRoster: { $in: [studentId] } }).then((teachers) => {
+//     res.send(teachers);
+//     Promise.all(
+//       teachers.map((teacher) =>
+//         Teacher.findOneAndUpdate(
+//           teacher._id,
+//           { $pull: { studentRoster: studentId } },
+//           { new: true }
+//         )
+//       )
+//     );
+//   });
+// });
 
 // Delete a teacher by id
 router.delete("/teachers/:id", (req, res) => {
