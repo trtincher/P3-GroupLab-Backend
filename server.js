@@ -15,8 +15,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(logger("dev"));
 
-const forteRouter = require("./controllers/info");
-app.use("/api/", forteRouter);
+const studentRouter = require("./controllers/student");
+const teacherRouter = require("./controllers/teacher");
+app.use("/api/students", studentRouter);
+app.use("/api/teachers", teacherRouter);
 
 app.set("port", process.env.PORT || 4000);
 
