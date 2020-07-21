@@ -4,6 +4,13 @@ const cors = require("cors");
 const logger = require("morgan");
 
 app.use(cors());
+
+var corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'] };
+app.use(cors(corsOptions));
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(logger("dev"));
