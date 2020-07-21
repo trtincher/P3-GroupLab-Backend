@@ -120,24 +120,68 @@ router.put("/:teacherid/addStudent/:studentid", (req, res) => {
 
 // Add teacher to student's myTeachers (addConnectionButton)
 router.put("/:studentid/addTeacher/:teacherid", (req, res) => {
-	Teacher.findById(req.params.teacherid, (err, teacher) => {
-	  if (err) console.log(err);
-	  else {
-		Student.findByIdAndUpdate(
-		  req.params.studentid,
-		  {
-			$push: {
-			  myTeachers: teacher,
-			},
-		  },
-		  { new: true },
-		  (err, student) => {
-			if (err) console.log(err);
-			else res.send(student);
-		  }
-		);
-	  }
-	});
+  Teacher.findById(req.params.teacherid, (err, teacher) => {
+    if (err) console.log(err);
+    else {
+      Student.findByIdAndUpdate(
+        req.params.studentid,
+        {
+          $push: {
+            myTeachers: teacher,
+          },
+        },
+        { new: true },
+        (err, student) => {
+          if (err) console.log(err);
+          else res.send(student);
+        }
+      );
+    }
   });
+});
+
+// Remove single teacher from student's myTeachers (works!)
+router.delete("/:studentid/removeTeacher/:teacherid", (req, res) => {
+  Teacher.findById(req.params.teacherid, (err, teacher) => {
+    if (err) console.log(err);
+    else {
+      Student.findByIdAndUpdate(
+        req.params.studentid,
+        {
+          $pull: {
+            myTeachers: teacher._id,
+          },
+        },
+        { new: true },
+        (err, student) => {
+          if (err) console.log(err);
+          else res.send(student);
+        }
+      );
+    }
+  });
+});
+
+// Remove single student from teacher's studentRoster
+router.delete("/:teacherid/removeStudent/:studentid", (req, res) => {
+  Student.findById(req.params.studentid, (err, student) => {
+    if (err) console.log(err);
+    else {
+      Teacher.findByIdAndUpdate(
+        req.params.teacherid,
+        {
+          $pull: {
+            studentRoster: student._id,
+          },
+        },
+        { new: true },
+        (err, teacher) => {
+          if (err) console.log(err);
+          else res.send(teacher);
+        }
+      );
+    }
+  });
+});
 
 module.exports = router;
