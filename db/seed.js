@@ -67,7 +67,7 @@ const main = async () => {
       language: "English",
       teachingStyle: "Authoritarian",
       online: true,
-      studentRoster: [{_id: '5f16ea423dcff51d4e6cf220'}],
+      studentRoster: ['5f16ea423dcff51d4e6cf220'],
       student: false,
       teacher: true,
     },

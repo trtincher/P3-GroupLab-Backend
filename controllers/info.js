@@ -29,13 +29,6 @@ router.get("/students/:lastname", (req, res) => {
   });
 });
 
-// // Get students by idiom1
-// router.get("/students/:idiom1", (req, res) => {
-//   Student.find({ idiom1: req.params.idiom1 }, (err, student) => {
-//     if (err) console.log(err);
-//     else res.send(student);
-//   });
-// });
 
 // Get teacher by last name
 router.get("/teachers/:lastname", (req, res) => {
