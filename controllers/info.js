@@ -139,27 +139,26 @@ router.put("/:studentid/addTeacher/:teacherid", (req, res) => {
   });
 });
 
-// // Remove teacher from student's myTeachers (doesn't work)
-// router.delete("/:studentid/removeTeacher/:teacherid", (req, res) => {
-//   Teacher.findById(req.params.teacherid, (err, teacher) => {
-//     console.log(teacher);
-//     if (err) console.log(err);
-//     else {
-//       Student.findByIdAndUpdate(
-//         req.params.studentid,
-//         {
-//           $pull: {
-//             myTeachers: [teacher],
-//           },
-//         },
-//         { new: true },
-//         (err, student) => {
-//           if (err) console.log(err);
-//           else res.send(student);
-//         }
-//       );
-//     }
-//   });
-// });
+// Remove single teacher from student's myTeachers (works!)
+router.delete("/:studentid/removeTeacher/:teacherid", (req, res) => {
+  Teacher.findById(req.params.teacherid, (err, teacher) => {
+    if (err) console.log(err);
+    else {
+      Student.findByIdAndUpdate(
+        req.params.studentid,
+        {
+          $pull: {
+            myTeachers: teacher._id,
+          },
+        },
+        { new: true },
+        (err, student) => {
+          if (err) console.log(err);
+          else res.send(student);
+        }
+      );
+    }
+  });
+});
 
 module.exports = router;
