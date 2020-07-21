@@ -119,24 +119,25 @@ router.put("/:teacherid/addStudent/:studentid", (req, res) => {
 
 // Add teacher to student's myTeachers (addConnectionButton)
 router.put("/:studentid/addTeacher/:teacherid", (req, res) => {
-	Teacher.findById(req.params.teacherid, (err, teacher) => {
-	  if (err) console.log(err);
-	  else {
-		Student.findByIdAndUpdate(
-		  req.params.studentid,
-		  {
-			$push: {
-			  myTeachers: teacher,
-			},
-		  },
-		  { new: true },
-		  (err, student) => {
-			if (err) console.log(err);
-			else res.send(student);
-		  }
-		);
-	  }
-	});
+  Teacher.findById(req.params.teacherid, (err, teacher) => {
+    if (err) console.log(err);
+    else {
+      Student.findByIdAndUpdate(
+        req.params.studentid,
+        {
+          $push: {
+            myTeachers: teacher,
+          },
+        },
+        { new: true },
+        (err, student) => {
+          if (err) console.log(err);
+          else res.send(student);
+        }
+      );
+    }
   });
+});
+
 
 module.exports = router;
