@@ -14,11 +14,15 @@ router.get("/", (req, res) => {
 });
 
 // Get student by last name
-router.get("/:lastname", (req, res) => {
-  Student.find({ lastName: req.params.lastname }, (err, student) => {
-    if (err) console.log(err);
-    else res.send(student);
-  });
+router.get("/:lastname", async (req, res) => {
+  try {
+    const student = await Student.find({
+      lastName: req.params.lastname
+    }).populate("myTeachers");
+    res.send(student);
+  } catch {
+    res.send("nope")
+  }
 });
 
 // Get student by email
