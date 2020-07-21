@@ -29,6 +29,7 @@ router.get("/students/:lastname", (req, res) => {
   });
 });
 
+
 // Get teacher by last name
 router.get("/teachers/:lastname", (req, res) => {
   Teacher.find({ lastName: req.params.lastname }, (err, teacher) => {
