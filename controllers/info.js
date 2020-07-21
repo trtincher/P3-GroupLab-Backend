@@ -161,4 +161,26 @@ router.delete("/:studentid/removeTeacher/:teacherid", (req, res) => {
   });
 });
 
+// Remove single student from teacher's studentRoster
+router.delete("/:teacherid/removeStudent/:studentid", (req, res) => {
+  Student.findById(req.params.studentid, (err, student) => {
+    if (err) console.log(err);
+    else {
+      Teacher.findByIdAndUpdate(
+        req.params.teacherid,
+        {
+          $pull: {
+            studentRoster: student._id,
+          },
+        },
+        { new: true },
+        (err, teacher) => {
+          if (err) console.log(err);
+          else res.send(teacher);
+        }
+      );
+    }
+  });
+});
+
 module.exports = router;
