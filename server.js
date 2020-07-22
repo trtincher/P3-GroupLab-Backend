@@ -22,7 +22,6 @@ const seedRouter = require("./controllers/seed");
 
 app.use("/api/students", studentRouter);
 app.use("/api/teachers", teacherRouter);
-app.use("/api/seed", seedRouter);
 
 app.set("port", process.env.PORT || 4000);
 
