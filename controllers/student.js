@@ -6,31 +6,37 @@ const Student = require("../models/student");
 const Teacher = require("../models/teacher");
 
 // List all students
-router.get("/", (req, res) => {
-  Student.find({}, (err, students) => {
-    if (err) console.log(err);
-    else res.send(students);
-  });
+router.get("/", async (req, res) => {
+  try {
+    const students = await Student.find({}).populate("myTeachers");
+    res.send(students);
+  } catch {
+    res.send("nope");
+  }
 });
 
 // Get student by last name
 router.get("/:lastname", async (req, res) => {
   try {
     const student = await Student.find({
-      lastName: req.params.lastname
+      lastName: req.params.lastname,
     }).populate("myTeachers");
     res.send(student);
   } catch {
-    res.send("nope")
+    res.send("nope");
   }
 });
 
 // Get student by email
-router.get("/email/:email", (req, res) => {
-  Student.find({ email: req.params.email }, (err, student) => {
-    if (err) console.log(err);
-    else res.send(student);
-  });
+router.get("/email/:email", async (req, res) => {
+  try {
+    const student = await Student.find({
+      email: req.params.email,
+    }).populate("myTeachers");
+    res.send(student);
+  } catch {
+    res.send("nope");
+  }
 });
 
 // Create a student
