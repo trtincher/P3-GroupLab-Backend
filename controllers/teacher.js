@@ -5,29 +5,38 @@ const router = express.Router();
 const Student = require("../models/student");
 const Teacher = require("../models/teacher");
 
-
 // List all teachers
-router.get("/", (req, res) => {
-  Teacher.find({}, (err, teachers) => {
-    if (err) console.log(err);
-    else res.send(teachers);
-  });
+router.get("/", async (req, res) => {
+  try {
+    const teachers = await Teacher.find({}).populate("studentRoster");
+    res.send(teachers);
+  } catch {
+    res.send("nope");
+  }
 });
 
 // Get teacher by last name
-router.get("/:lastname", (req, res) => {
-  Teacher.find({ lastName: req.params.lastname }, (err, teacher) => {
-    if (err) console.log(err);
-    else res.send(teacher);
-  });
+router.get("/:lastname", async (req, res) => {
+  try {
+    const teacher = await Teacher.find({
+      lastName: req.params.lastname,
+    }).populate("studentRoster");
+    res.send(teacher);
+  } catch {
+    res.send("nope");
+  }
 });
 
 // Get teacher by email
-router.get("/email/:email", (req, res) => {
-  Teacher.find({ email: req.params.email }, (err, teacher) => {
-    if (err) console.log(err);
-    else res.send(teacher);
-  });
+router.get("/email/:email", async (req, res) => {
+  try {
+    const teacher = await Teacher.find({
+      email: req.params.email,
+    }).populate("studentRoster");
+    res.send(teacher);
+  } catch {
+    res.send("nope");
+  }
 });
 
 // Create a teacher
