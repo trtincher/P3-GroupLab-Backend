@@ -20,25 +20,6 @@ const studentSchema = new mongoose.Schema({
   teacher: { type: Boolean, default: false },
 });
 
-// After the delete, cascade delete all references
-studentSchema.post("deleteOne", (document) => {
-  console.log(document);
-  const studentId = document._id;
-  // console.log("studentId", studentId)
-  Teacher.find({ studentRoster: { $in: studentId } }).then((teachers) => {
-    // res.send(teachers);
-    Promise.all(
-      teachers.map((teacher) =>
-        Teacher.findOneAndUpdate(
-          teacher._id,
-          { $pull: { studentRoster: studentId } },
-          { new: true }
-        )
-      )
-    );
-  });
-});
-
 const Student = mongoose.model("Student", studentSchema);
 
 module.exports = Student;
