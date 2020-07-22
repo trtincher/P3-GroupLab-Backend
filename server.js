@@ -6,9 +6,10 @@ const logger = require("morgan");
 app.use(cors());
 
 var corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: "http://localhost:3000",
   credentials: true,
-  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'] };
+  methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
+};
 app.use(cors(corsOptions));
 
 app.use(express.urlencoded({ extended: false }));
@@ -17,6 +18,8 @@ app.use(logger("dev"));
 
 const studentRouter = require("./controllers/student");
 const teacherRouter = require("./controllers/teacher");
+const seedRouter = require("./controllers/seed");
+
 app.use("/api/students", studentRouter);
 app.use("/api/teachers", teacherRouter);
 
