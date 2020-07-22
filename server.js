@@ -18,7 +18,6 @@ app.use(logger("dev"));
 
 const studentRouter = require("./controllers/student");
 const teacherRouter = require("./controllers/teacher");
-const seedRouter = require("./controllers/seed");
 
 app.use("/api/students", studentRouter);
 app.use("/api/teachers", teacherRouter);
