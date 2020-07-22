@@ -14,7 +14,7 @@ const teacherSchema = new mongoose.Schema({
   online: { type: Boolean, default: false },
   studentRoster: [
     {
-      ref: "student",
+      ref: "Student",
       type: mongoose.Schema.Types.ObjectId,
     },
   ],

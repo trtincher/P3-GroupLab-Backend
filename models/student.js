@@ -11,7 +11,7 @@ const studentSchema = new mongoose.Schema({
   other: { type: String },
   myTeachers: [
     {
-      ref: "teacher",
+      ref: "Teacher",
       type: mongoose.Schema.Types.ObjectId,
     },
   ],
@@ -21,8 +21,8 @@ const studentSchema = new mongoose.Schema({
 });
 
 // After the delete, cascade delete all references
-studentSchema.post("remove", (document) => {
-  res.send(document);
+studentSchema.post("deleteOne", (document) => {
+  console.log(document);
   const studentId = document._id;
   // console.log("studentId", studentId)
   Teacher.find({ studentRoster: { $in: studentId } }).then((teachers) => {
